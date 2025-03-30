@@ -1,0 +1,56 @@
+25/03/26
+## 一開始不確定從 public-apis/public-apis 中選哪個 API,
+花了一些時間在編寫WAP test的時候邊想一下題目,原本在擔心WAP花太多時間,最後只能寫一個相對間單的完成
+還好最後來得及
+因為跟博弈球賽有關,所以後續選了Football-Data.org API，因為有提供足球比賽數據，與業務相關，且有足夠複雜性（JSON 結構、多參數）。後來發現真的好複雜....但算了頭都洗下去了==
+resource:[
+    Football-Data.org 文件：http://api.football-data.org/documentation
+    Public APIs 資源庫：https://github.com/public-apis/public-apis
+]
+
+
+25/03/27
+
+
+25/03/29
+## 測試數據內嵌在程式碼中不易維護
+1.最初測試數據我都寫在 @pytest.mark.parametrize 中,若case增加,後續在maintain上會越來越不易
+2.這樣的設計對非automation的QA也更友善,這樣後續manaul想新增case只需要在test_data_json新增即可,對兩個團隊間合作會更好
+
+sol：
+把數據抽到 test_data.json,用 JSON 儲存，在code中載入。
+
+25/03/30
+1.另外今天參考了victor的call CMC的設計
+https://github.com/CubeVic/coinmarketcapAPI/blob/main/src/test/test_cmc_utils.py
+的確有讓我想把個個end point寫成不同的class設計,這樣應該也更好維護
+
+2.新增 "scenario" 欄位，提升可讀性和上下文。
+這個是在design時想到的,這樣更好快速追蹤數據或是邏輯上出了問題
+更新 test_matches.py：
+resource:[
+    Pytest Parametrize：https://docs.pytest.org/en/stable/how-to/parametrize.html
+    JSON 文件處理：https://docs.python.org/3/library/json.html
+]
+
+
+
+parametrize:三個場景可以共用一組測試fuction,減少code
+後來覺得,如果針對長期的擴展性,應該要將positive negative...的測試資料分開,這樣的框架應該是比較好的
+
+---這個應該是更好的做法,把data和test分開,一樣可以使用parametrize讀入
+完整範例for如何讀入,與商用實境應該最像,包含async,await,lru_cache,等加速測試速度,與實際情況也最類似
+理論上來說不會只有一個user,而是會有許多user同時call api, async才可以同步處理這些call
+https://ithelp.ithome.com.tw/articles/10336272
+
+
+---LRU cache(日後加進project裡)
+意外收穫的酷東西,比原先的First In First Out更聰明,會記住最常使用的,把不常用的淘汰.
+詳細source如下
+https://realnewbie.com/coding/python/beginner-guide-deep-dive-into-python-lru-cache-mechanism/#ftoc-heading-1
+
+---
+
+## docker
+有時間看：https://ithelp.ithome.com.tw/articles/10336829
+可以任意在 backend Container 中任意切換 DB 進行測試
