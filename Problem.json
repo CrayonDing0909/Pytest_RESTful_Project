@@ -15,6 +15,8 @@ resource:[
 25/03/29
 ## 測試數據內嵌在程式碼中不易維護
 1.最初測試數據我都寫在 @pytest.mark.parametrize 中,若case增加,後續在maintain上會越來越不易
+sol:
+將test_data拉出來到test_data.json
 2.這樣的設計對非automation的QA也更友善,這樣後續manaul想新增case只需要在test_data_json新增即可,對兩個團隊間合作會更好
 
 sol：
