@@ -20,14 +20,14 @@
         "has_keys": ["message"]
     },
     {
-        "scenario": "Boundary - Future date with no matches",
-        "date_from": "2025-03-26",
-        "date_to": "2025-03-26",
+        "scenario": "Positive - Future matches",
+        "date_from": "2025-04-01",
+        "date_to": "2025-04-10",
         "api_key": "API_KEY",
         "status": null,
         "expected_status": 200,
         "expected_matched_type": "list",
-        "has_keys": []
+        "has_keys": ["homeTeam", "score"]
     },
     {
         "scenario": "Negative - Invalid date format",

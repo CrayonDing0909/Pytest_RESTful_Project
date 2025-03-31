@@ -9,8 +9,9 @@ def test_api_connection():
     print(f"Invalid Date - Status Code: {response.status_code}")
     print(f"Invalid Date - Response: {response.json()}")
     
-    # 測試 2: live game
-    response = client.get_matches(date_from="2024-03-16", date_to="2024-03-30")
+    # 測試 2: get data
+    # can't exceed 10 day
+    response = client.get_matches(date_from="2024-04-01", date_to="2024-04-10")
     print(f"LIVE Matches - Status Code: {response.status_code}")
     print(f"LIVE Matches - Response: {response.json()}")
 

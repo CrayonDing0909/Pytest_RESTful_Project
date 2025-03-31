@@ -6,9 +6,9 @@ This project tests the Football-Data.org API (`/v4/matches` endpoint) using Pyth
 
 | Test Case                   | Steps                                              | Expected Result                        | Validation Method                          |
 |-----------------------------|----------------------------------------------------|----------------------------------------|--------------------------------------------|
-| Positive - Query past matches | Send GET with 2024-03-16 to 2024-03-20            | Status 200, matches list with data     | Check status, matches type, keys (homeTeam, score) |
-| Negative - Invalid API Key  | Send GET with invalid key                         | Status 400, error message              | Check status, response type, message key   |
-| Boundary - Future date      | Send GET with 2025-03-26                         | Status 200, empty matches list         | Check status, matches is empty list        |
+| Positive - Query past matches | Send GET with 2024-03-16 to 2024-03-20           | Status 200, matches list with data     | Check status, matches type, keys (homeTeam, score) |
+| Negative - Invalid API Key  | Send GET with invalid key                          | Status 400, error message              | Check status, response type, message key   |
+| Positive - Future date      | Send GET with 2025-04-01 to 2025-04-10             | Status 200, empty matches list         | Check status, matches type, keys           |
 | Negative - Invalid date format | Send GET with 2024-13-01                        | Status 400, error message              | Check status, response type, message key   |
 | Positive - Query live matches | Send GET with 2024-03-26, status=LIVE            | Status 200, matches list (may be empty)| Check status, matches type                 |
 

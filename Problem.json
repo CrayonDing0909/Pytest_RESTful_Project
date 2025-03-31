@@ -2,7 +2,7 @@
 ## 一開始不確定從 public-apis/public-apis 中選哪個 API,
 花了一些時間在編寫WAP test的時候邊想一下題目,原本在擔心WAP花太多時間,最後只能寫一個相對間單的完成
 還好最後來得及
-因為跟博弈球賽有關,所以後續選了Football-Data.org API，因為有提供足球比賽數據，與業務相關，且有足夠複雜性（JSON 結構、多參數）。後來發現真的好複雜....但算了頭都洗下去了==
+因為跟博弈球賽有關,所以後續選了Football-Data.org API，因為有提供足球比賽數據，與業務相關，且有足夠複雜性（JSON 結構）。後來發現真的好複雜....但算了頭都洗下去了==
 resource:[
     Football-Data.org 文件：http://api.football-data.org/documentation
     Public APIs 資源庫：https://github.com/public-apis/public-apis
@@ -36,6 +36,11 @@ resource:[
 ]
 
 
+
+
+## 後續開發：
+我應該會另外再存一份groundtruth,以確認每版的result是與上一版一致
+方發應該會比找test_data.json的方式,
 
 parametrize:三個場景可以共用一組測試fuction,減少code
 後來覺得,如果針對長期的擴展性,應該要將positive negative...的測試資料分開,這樣的框架應該是比較好的

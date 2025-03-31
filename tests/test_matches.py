@@ -26,7 +26,6 @@ ids = [case["scenario"] for case in TEST_DATA]
 
 @pytest.fixture
 def api_client():
-    """提供 FootballAPIClient 實例作為測試 fixture"""
     return FootballAPIClient(api_key=API_KEY)
 
 @pytest.mark.parametrize(
@@ -36,14 +35,28 @@ def api_client():
 )
 def test_get_matches(api_client, date_from, date_to, api_key, status, expected_status, expected_matched_type, has_keys):
     """
-    測試案例：查詢比賽數據的多場景測試
-    步驟：
-    1. 使用指定的日期範圍、API Key 和狀態發送 GET 請求到 /v4/matches
-    預期結果：見 test_data.json 中的 scenario 描述
-    驗證方法：
-    - 檢查狀態碼是否符合預期
-    - 檢查 matches 和回應的類型
-    - 檢查特定key是否存在
+    Test Case:
+
+    Steps:  
+    1. Load test data from `test_data.json`, including date range (`date_from`, `date_to`), API Key (`api_key`), and match status (`status`).  
+    2. Use `FootballAPIClient` to send a GET request to the `/v4/matches` endpoint for each test case:  
+    - **Positive Cases**: Query past or live match data.  
+    - **Negative Cases**: Test invalid API Key or incorrect date format.  
+    - **Edge Cases**: Query future dates.
+
+    Expected Results:  
+    - **Positive Cases (Past Matches, Live Matches)**: Status code **200**, `matches` is a list of match data (can be empty). If data exists, it includes specific keys (e.g., `homeTeam`, `score`).  
+    - **Negative Cases (Invalid API Key, Invalid Date Format)**: Status code **400**, response is an error dictionary containing the `message` key.  
+    Detailed results are described in `test_data.json` under the `scenario` section.  
+
+    Verification Method:  
+    - **Check Status Code**: Use `assert response.status_code == expected_status` to ensure the API returns the expected status (**200** for success, **400** for errors).  
+    - **Check Response Type**:  
+    - If status code is not **200** (Negative Cases), use `isinstance(response_data, expected_matched_type)` to confirm the response is a dictionary.  
+    - If status code is **200** (Positive & Edge Cases), use `isinstance(response_data["matches"], expected_matched_type)` to confirm `matches` is a list.  
+    - **Check Specific Keys**: Use `all(key in data for key in has_keys)` to verify expected keys exist:  
+    - **Positive Cases**: Check match data keys (e.g., `homeTeam`, `score`) to ensure data completeness.  
+    - **Negative Cases**: Check for the error message key (`message`) to confirm readable errors.  
     """
     client = FootballAPIClient(api_key=api_key)
     response = client.get_matches(date_from=date_from, date_to=date_to, status=status)
