@@ -1,6 +1,6 @@
 # Football API Tests
 
-This project tests the Football-Data.org API (`/v4/matches` endpoint) using Python and Pytest, designed for OpenNet's home test. It focuses on sports betting scenarios relevant to SportyBet, such as match data retrieval and error handling.
+This project tests the Football-Data.org API (`/v4/matches` endpoint) using Python and Pytest,It focuses on sports betting scenarios relevant to Sport, such as match data retrieval and error handling.
 
 ## Test Cases
 
@@ -24,12 +24,11 @@ This project tests the Football-Data.org API (`/v4/matches` endpoint) using Pyth
 
 ## Setup
 1. Install dependencies: `pip install -r requirements.txt`
-2. Set your API Key in `config.py` (register at http://api.football-data.org/).
+2. Set API Key in `config.py` (register at http://api.football-data.org/).
 3. Run tests: `pytest test_matches.py -s -v`
 
 ## Notes
-- API Key is user-specific; replace it with your own for testing.
-- Tests are validated with real API responses during development.
+- API Key : Please replace it with your own for testing.
 
 ## Learning Notes
 - See `Problem.json` for challenges encountered and solutions applied during development.
